@@ -16,58 +16,58 @@ DROP EXTERNAL TABLE IF EXISTS e_orders;
 DROP EXTERNAL TABLE IF EXISTS e_lineitem;
 
 CREATE EXTERNAL TABLE e_nation (N_NATIONKEY  INTEGER ,
-                            N_NAME       VARCHAR(25) ,
+                            N_NAME       TEXT ,
                             N_REGIONKEY  INTEGER ,
-                            N_COMMENT    VARCHAR(152))
+                            N_COMMENT    TEXT
                         location ('gpfdist://localhost:8081/nation.tbl') format 'text' (delimiter '|');
 
 CREATE EXTERNAL TABLE e_REGION  ( R_REGIONKEY  INTEGER ,
-                            R_NAME       VARCHAR(25) ,
-                            R_COMMENT    VARCHAR(152))
+                            R_NAME       TEXT ,
+                            R_COMMENT    TEXT
                         location ('gpfdist://localhost:8081/region.tbl') format 'text' (delimiter '|');
 
 CREATE EXTERNAL TABLE e_PART  ( P_PARTKEY     INTEGER ,
-                          P_NAME        VARCHAR(55) ,
-                          P_MFGR        VARCHAR(25) ,
-                          P_BRAND       VARCHAR(10) ,
-                          P_TYPE        VARCHAR(25) ,
+                          P_NAME        TEXT ,
+                          P_MFGR        TEXT ,
+                          P_BRAND       TEXT ,
+                          P_TYPE        TEXT ,
                           P_SIZE        INTEGER ,
-                          P_CONTAINER   VARCHAR(10) ,
+                          P_CONTAINER   TEXT ,
                           P_RETAILPRICE  FLOAT  ,
-                          P_COMMENT     VARCHAR(23) )
+                          P_COMMENT     TEXT )
                         location ('gpfdist://localhost:8081/part.tbl') format 'text' (delimiter '|');
 CREATE EXTERNAL TABLE e_SUPPLIER ( S_SUPPKEY     INTEGER ,
-                             S_NAME        VARCHAR(25) ,
-                             S_ADDRESS     VARCHAR(40) ,
+                             S_NAME        TEXT ,
+                             S_ADDRESS     TEXT ,
                              S_NATIONKEY   INTEGER ,
-                             S_PHONE       VARCHAR(15) ,
+                             S_PHONE       TEXT ,
                              S_ACCTBAL      FLOAT  ,
-                             S_COMMENT     VARCHAR(101) )
+                             S_COMMENT     TEXT )
                         location ('gpfdist://localhost:8081/supplier.tbl') format 'text' (delimiter '|');
 CREATE EXTERNAL TABLE e_PARTSUPP ( PS_PARTKEY     INTEGER ,
                              PS_SUPPKEY     INTEGER ,
                              PS_AVAILQTY    INTEGER ,
                              PS_SUPPLYCOST   FLOAT   ,
-                             PS_COMMENT     VARCHAR(199) )
+                             PS_COMMENT     TEXT )
                         location ('gpfdist://localhost:8081/partsupp.tbl') format 'text' (delimiter '|');
 CREATE EXTERNAL TABLE e_CUSTOMER ( C_CUSTKEY     INTEGER ,
-                             C_NAME        VARCHAR(25) ,
-                             C_ADDRESS     VARCHAR(40) ,
+                             C_NAME        TEXT ,
+                             C_ADDRESS     TEXT ,
                              C_NATIONKEY   INTEGER ,
-                             C_PHONE       VARCHAR(15) ,
+                             C_PHONE       TEXT ,
                              C_ACCTBAL      FLOAT  ,
-                             C_MKTSEGMENT  VARCHAR(10) ,
-                             C_COMMENT     VARCHAR(117) )
+                             C_MKTSEGMENT  TEXT ,
+                             C_COMMENT     TEXT )
                         location ('gpfdist://localhost:8081/customer.tbl') format 'text' (delimiter '|');
 CREATE EXTERNAL TABLE e_ORDERS  ( O_ORDERKEY       INT8 ,
                            O_CUSTKEY        INTEGER ,
-                           O_ORDERSTATUS    VARCHAR(1) ,
+                           O_ORDERSTATUS    TEXT ,
                            O_TOTALPRICE      FLOAT  ,
                            O_ORDERDATE      DATE,
-                           O_ORDERPRIORITY  VARCHAR(15) ,
-                           O_CLERK          VARCHAR(15) ,
+                           O_ORDERPRIORITY  TEXT ,
+                           O_CLERK          TEXT ,
                            O_SHIPPRIORITY   INTEGER ,
-                           O_COMMENT        VARCHAR(79) )
+                           O_COMMENT        TEXT )
                         location ('gpfdist://localhost:8081/orders.tbl') format 'text' (delimiter '|');
 CREATE EXTERNAL TABLE E_LINEITEM ( L_ORDERKEY    INT8 ,
                               L_PARTKEY     INTEGER ,
@@ -77,54 +77,54 @@ CREATE EXTERNAL TABLE E_LINEITEM ( L_ORDERKEY    INT8 ,
                               L_EXTENDEDPRICE   FLOAT  ,
                               L_DISCOUNT     FLOAT  ,
                               L_TAX          FLOAT  ,
-                              L_RETURNFLAG  VARCHAR(1) ,
-                              L_LINESTATUS  VARCHAR(1) ,
+                              L_RETURNFLAG  TEXT ,
+                              L_LINESTATUS  TEXT ,
                               L_SHIPDATE    DATE ,
                               L_COMMITDATE  DATE ,
                               L_RECEIPTDATE DATE ,
-                              L_SHIPINSTRUCT CHAR(25) ,
-                              L_SHIPMODE     VARCHAR(10) ,
-                              L_COMMENT      VARCHAR(44) )
+                              L_SHIPINSTRUCT TEXT ,
+                              L_SHIPMODE     TEXT ,
+                              L_COMMENT      TEXT )
                          location ('gpfdist://localhost:8081/lineitem.tbl') format 'text' (delimiter '|');
 
 CREATE TABLE NATION
 (
     N_NATIONKEY INTEGER,
-    N_NAME      CHAR(25),
+    N_NAME      TEXT,
     N_REGIONKEY INTEGER,
-    N_COMMENT   VARCHAR(152)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    N_COMMENT   TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE REGION
 (
     R_REGIONKEY INTEGER,
-    R_NAME      CHAR(25),
-    R_COMMENT   VARCHAR(152)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    R_NAME      TEXT,
+    R_COMMENT   TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE PART
 (
     P_PARTKEY     INTEGER,
-    P_NAME        VARCHAR(55),
-    P_MFGR        CHAR(25),
-    P_BRAND       CHAR(10),
-    P_TYPE        VARCHAR(25),
+    P_NAME        TEXT,
+    P_MFGR        TEXT,
+    P_BRAND       TEXT,
+    P_TYPE        TEXT,
     P_SIZE        INTEGER,
-    P_CONTAINER   CHAR(10),
+    P_CONTAINER   TEXT,
     P_RETAILPRICE DECIMAL(38,2),
-    P_COMMENT     VARCHAR(23)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    P_COMMENT     TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE SUPPLIER
 (
     S_SUPPKEY   INTEGER,
-    S_NAME      CHAR(25),
-    S_ADDRESS   VARCHAR(40),
+    S_NAME      TEXT,
+    S_ADDRESS   TEXT,
     S_NATIONKEY INTEGER,
-    S_PHONE     CHAR(15),
+    S_PHONE     TEXT,
     S_ACCTBAL   DECIMAL(38,2),
-    S_COMMENT   VARCHAR(101)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    S_COMMENT   TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE PARTSUPP
 (
@@ -132,20 +132,20 @@ CREATE TABLE PARTSUPP
     PS_SUPPKEY    INTEGER,
     PS_AVAILQTY   INTEGER,
     PS_SUPPLYCOST DECIMAL(38,2),
-    PS_COMMENT    VARCHAR(199)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    PS_COMMENT    TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE CUSTOMER
 (
     C_CUSTKEY    INTEGER,
-    C_NAME       VARCHAR(25),
-    C_ADDRESS    VARCHAR(40),
+    C_NAME       TEXT,
+    C_ADDRESS    TEXT,
     C_NATIONKEY  INTEGER,
-    C_PHONE      CHAR(15),
+    C_PHONE      TEXT,
     C_ACCTBAL    DECIMAL(38,2),
-    C_MKTSEGMENT CHAR(10),
-    C_COMMENT    VARCHAR(117)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    C_MKTSEGMENT TEXT,
+    C_COMMENT    TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);
 
 CREATE TABLE orders
 (
@@ -154,11 +154,11 @@ CREATE TABLE orders
     o_orderstatus   CHAR,
     o_totalprice    DECIMAL(38,2),
     o_orderdate     DATE,
-    o_orderpriority CHAR(15),
-    o_clerk         CHAR(15),
+    o_orderpriority TEXT,
+    o_clerk         TEXT,
     o_shippriority  integer,
-    o_comment       VARCHAR(79)
-) with (appendonly = true, orientation = orc, compresstype=lz4)
+    o_comment       TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8)
 ;
 
 CREATE TABLE lineitem
@@ -176,7 +176,7 @@ CREATE TABLE lineitem
     L_SHIPDATE      DATE,
     L_COMMITDATE    DATE,
     L_RECEIPTDATE   DATE,
-    L_SHIPINSTRUCT  CHAR(25),
-    L_SHIPMODE      CHAR(10),
-    L_COMMENT       VARCHAR(44)
-) with (appendonly = true, orientation = orc, compresstype=lz4);
+    L_SHIPINSTRUCT  TEXT,
+    L_SHIPMODE      TEXT,
+    L_COMMENT       TEXT
+) with (appendonly = true, orientation = orc, compresstype=lz4, dicthreshold=0.8);

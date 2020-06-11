@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # load data
-# load data
 list = {nation, region, part, supplier, partsupp, customer, orders, lineitem}
 for i in list
 do

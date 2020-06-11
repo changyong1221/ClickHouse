@@ -1,6 +1,6 @@
 --start_ignore
 ALTER RESOURCE QUEUE pg_default with (VSEG_RESOURCE_QUOTA='mem:8gb');
-set enforce_virtual_segment_number = 10;
+set hawq_rm_nvseg_perquery_perseg_limit = 10;
 
 \timing
 --end_ignore
