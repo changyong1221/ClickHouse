@@ -15,9 +15,9 @@ set max_threads = 10;
 	sum(l_extendedprice) as sum_base_price,
 	sum(l_extendedprice * (1 - l_discount)) as sum_disc_price,
 	sum(l_extendedprice * (1 - l_discount) * (1 + l_tax)) as sum_charge,
-	avg(l_quantity)::decimal(15,2) as avg_qty,
-	avg(l_extendedprice)::decimal(15,2) as avg_price,
-	avg(l_discount)::decimal(15,2) as avg_disc,
+	avg(l_quantity) as avg_qty,
+	avg(l_extendedprice) as avg_price,
+	avg(l_discount) as avg_disc,
 	count(*) as count_order
 from
 	lineitem

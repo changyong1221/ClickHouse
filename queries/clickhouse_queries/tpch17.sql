@@ -11,7 +11,7 @@ set max_threads = 10;
 
 --sql_start
  select
-	(sum(l_extendedprice) / 7.0)::decimal(10,2) as avg_yearly
+	(sum(l_extendedprice) / 7.0) as avg_yearly
 from
 	lineitem,
 	part

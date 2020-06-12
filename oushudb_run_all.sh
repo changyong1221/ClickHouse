@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create tables
-hawq sql -f ./oushudb_ddl.sql
+sh oushudb_ddl.sh
 
 # load data
 sh oushudb_load.sh

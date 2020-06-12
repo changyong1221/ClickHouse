@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create tables
-clickhouse-client --multiline --multiquery < clickhouse-ddl.sql
+sh clickhouse_ddl.sh
 
 # load data
 sh clickhouse_load.sh
